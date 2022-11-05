@@ -34,9 +34,6 @@ with col1:
                 st.write("- " + str(name))
                 color = "red"
         else:
-            with col6:
-                st.write("#### New places added:")
-                st.write("- ", str(name))
                 color = 'green'
         tooltip = str(name) + " | Rating: " + str(Rating)
         try:
