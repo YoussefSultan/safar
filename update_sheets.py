@@ -6,7 +6,7 @@ import re
 #!pip3 install --upgrade google-api-python-client oauth2client
 #importing the required libraries
 
-def update_data(travel_df,ix_to_update=None,travel_destination="Toronto Canada",update_all=False):
+def update_data(travel_df,ix_to_update=None,travel_destination=st.secrets['place_of_interest'],update_all=False):
    #for i in range(len(travel_df.loc_of_interest))
     if update_all:
         to_update = range(len(travel_df.loc_of_interest))
@@ -39,7 +39,7 @@ ix_to_update = [i for i in df[df['Longitude'].isnull()].index]
 if len(ix_to_update) == 0:
     pass
 else:
-    update_data(df,ix_to_update,travel_destination="Toronto Canada",update_all=False)
+    update_data(df,ix_to_update,update_all=False)
     df = df.fillna(0)
     sheet.update([df.columns.values.tolist()] + df.values.tolist())
 
