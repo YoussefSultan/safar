@@ -28,7 +28,7 @@ st.sidebar.title("Contact")
 exec(open("get_details.py").read())
 exec(open("update_sheets.py").read())
 
-destination_loc = [41.0082, 28.9784]
+destination_loc = [float(df.Longitude.median()),float(df.Latitude.median())]
 
 # center on Liberty Bells
 m = folium.Map(location=destination_loc, zoom_start=13)
