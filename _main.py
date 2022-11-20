@@ -4,20 +4,16 @@ import folium
 import pandas as pd
 from pandas import DataFrame
 
-
-
-
-#button = st.button("Mobile")
-#if button:
-#    layout = 'centered'
-#else:
-#    layout='wide'
-#
 st.set_page_config(
     page_title="Safar explore app",
     page_icon="🧊",
-    layout=layout)
+    layout='wide')
 
+button = st.button("Mobile")
+if button:
+    height, width = 720, 1280
+else:
+    height, width = 800, 1750
 
 #@st.cache(ttl=10)
 exec(open("get_details.py").read())
