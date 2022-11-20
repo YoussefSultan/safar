@@ -4,24 +4,19 @@ import folium
 import pandas as pd
 from pandas import DataFrame
 
-st.set_page_config(layout="wide")
 
-st.sidebar.title("About")
-st.sidebar.info(
-    """
-    Web App URL: <https://>
-    """
-)
 
-st.sidebar.title("Contact")
-#st.sidebar.info(
-#    """
-#    Youssef Sultan:  
-#    [Website](https://youssefsultan.github.io/) 
-#    | [GitHub](https://github.com/youssefsultan) 
-#    | [LinkedIn](https://linkedin.com/in/YoussefSultan) 
-#    """
-#)
+
+button = st.button("Mobile")
+if button:
+    layout = 'centered'
+else:
+    layout='wide'
+
+st.set_page_config(
+    page_title="Safar explore app",
+    page_icon="🧊",
+    layout=layout)
 
 
 #@st.cache(ttl=10)
