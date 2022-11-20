@@ -11,7 +11,7 @@ st.set_page_config(
 
 button = st.button("Mobile")
 if button:
-    height, width = 1000, 500
+    height, width = 750, 350
 else:
     height, width = 800, 1750
 
