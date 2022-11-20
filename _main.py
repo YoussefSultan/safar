@@ -73,3 +73,7 @@ with c3:
     st.write('### Newly Added 🟩:')
     newly_added_df = list(df[df.experienced == 2].formatted_name)
     st.write(newly_added_df)
+with c4:
+    st.write('### Sites To See 🟧:')
+    to_see_df = list(df[df.experienced == 3].formatted_name)
+    st.write(to_see_df)
