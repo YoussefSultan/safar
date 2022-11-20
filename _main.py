@@ -59,7 +59,7 @@ for i in range(len(df)):
         break
 
 st.write("## The Map:")
-folium_static(m, height=800,width=1750)
+folium_static(m, height=height,width=width)
 
 c1, c2, c3= st.columns(3)
 with c1:
