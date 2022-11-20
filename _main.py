@@ -61,7 +61,7 @@ for i in range(len(df)):
 st.write("## The Map:")
 folium_static(m, height=height,width=width)
 
-c1, c2, c3= st.columns(3)
+c1, c2, c3, c4 = st.columns(3)
 with c1:
     st.write('### Experienced 🟥:')
     st.write(exp)
