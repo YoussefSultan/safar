@@ -55,7 +55,7 @@ for i in range(len(df)):
         color = "orange"
     else:
         color = 'green'
-    tooltip = str(name) + " | Rating: " + str(Rating) + " | Notes:" + str(notes)
+    tooltip = str(name) + " | Rating: " + str(Rating) + " | Notes: " + str(notes)
     try:
         folium.Marker(
             place_loc, popup=name, tooltip=tooltip, icon=folium.Icon(color=color,icon_color="white")
