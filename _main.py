@@ -7,12 +7,12 @@ from pandas import DataFrame
 
 
 
-button = st.button("Mobile")
-if button:
-    layout = 'centered'
-else:
-    layout='wide'
-
+#button = st.button("Mobile")
+#if button:
+#    layout = 'centered'
+#else:
+#    layout='wide'
+#
 st.set_page_config(
     page_title="Safar explore app",
     page_icon="🧊",
