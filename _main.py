@@ -49,7 +49,7 @@ for i in range(len(df)):
     tooltip = str(name) + " | Rating: " + str(Rating) + " | Notes: " + str(notes)
     try:
         folium.Marker(
-            place_loc, popup=name, tooltip=tooltip, icon=folium.Icon(color=color,icon_color="white")
+            place_loc, tooltip=tooltip, icon=folium.Icon(color=color,icon_color="white")
         ).add_to(m)
         
         folium.Icon(color=color)
