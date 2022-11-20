@@ -50,6 +50,8 @@ for i in range(len(df)):
     elif experienced == 1:
         exp.append(str(name))
         color = "red"
+    elif experienced == 3:
+        color = "orange"
     else:
         color = 'green'
     tooltip = str(name) + " | Rating: " + str(Rating)
