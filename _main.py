@@ -47,9 +47,10 @@ for i in range(len(df)):
     else:
         color = 'green'
     tooltip = str(name) + " | Rating: " + str(Rating) + " | Notes: " + str(notes)
+    linkofplace = ("https://www.google.com/search?q=" + name + ' ' + st.secrets['place_of_interest']).replace(" ","%20")
     try:
         folium.Marker(
-            place_loc, tooltip=tooltip, icon=folium.Icon(color=color,icon_color="white")
+            place_loc, tooltip=tooltip, icon=folium.Icon(color=color,icon_color="white"), popup="<a href=_link target='_blank'>link</a>".replace("_link",linkofplace).replace("link",name)
         ).add_to(m)
         
         folium.Icon(color=color)
