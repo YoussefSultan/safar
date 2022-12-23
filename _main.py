@@ -9,8 +9,8 @@ st.set_page_config(
     page_icon="🧊",
     layout='wide')
 
-button = st.button("Mobile")
-if button:
+button = st.button("Desktop")
+if not button:
     height, width = 750, 350
 else:
     height, width = 800, 1750
