@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_folium import folium_static
 import folium
+from folium.plugins import LocateControl
 import pandas as pd
 from pandas import DataFrame
 
@@ -58,6 +59,9 @@ for i in range(len(df)):
         st.error(f"null values found...frozen at {name}")
         st.dataframe(df[df.Longitude.isnull()])
         break
+
+# Add location of user
+LocateControl().add_to(m)
 
 st.write("## The Map:")
 folium_static(m, height=height,width=width)
