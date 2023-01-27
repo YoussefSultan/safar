@@ -9,7 +9,7 @@ api_key = st.secrets["api_key"]
 def get_details(place, travel_destination):
     # Get latitude and longitude of travel destination to ensure search results 
     # are biased towards the location of choice and not IP address
-    assert type(travel_destination) == str
+    assert type(travel_destination) == str, print(travel_destination,type(travel_destination))
     # Get Lat Lon of Travel Destination
     input = travel_destination
     formatted_input = input.replace(' ', '%20')

@@ -36,10 +36,13 @@ with st.sidebar:
         
         # Initialize Selections of Unique Profiles in Master Data
         selections = list(source_df.username.unique())
-        
+        st.write(len(user_input_places.split(', ')))
         # Edge Case Rules to not make updates to the Master Data list if USER INPUT data is X
         if user_input_username in ['Username/Identifier','','ys-turkey','ys-canada',' '] or user_input_location in ['City, State/Country','',' '] or user_input_places in ['',' ']:
+            st.error('Please enter a username and location in the above format...')
             users_place_of_interest = source_df[source_df.username == selections[0]]['place_of_interest'][0]
+        elif len(user_input_places.split(', ')) > 10:
+            st.error('Please reduce entries...')
         else:
             # Iterate through each place for the username and place of interest to add to the data
             for places in user_input_places.split(', '):
@@ -67,9 +70,12 @@ with st.sidebar:
             
         
     # Update our selections of profiles after update
+    sheet = client.open_by_url(st.secrets['public_gsheets_url']).get_worksheet(0)
+    source_df = pd.DataFrame(sheet.get_all_records())
     selections = list(source_df.username.unique())    
     
     # >> Click here to pick a profile    
     with st.expander("Click here to pick a profile"):
         user_selection = st.selectbox('Select a previous query', tuple(selections))
         df = source_df[source_df.username == user_selection].iloc[:,:9].reset_index()
+        users_place_of_interest = list(source_df[source_df.username == user_selection]['place_of_interest'])[0]
