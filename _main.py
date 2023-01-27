@@ -4,11 +4,13 @@ import folium
 from folium.plugins import LocateControl
 import pandas as pd
 from pandas import DataFrame
-
+global df
 st.set_page_config(
     page_title="Safar explore app",
     page_icon="🧊",
     layout='wide')
+
+
 
 button = st.button("Desktop")
 if not button:
@@ -19,6 +21,7 @@ else:
 #@st.cache(ttl=10)
 exec(open("get_details.py").read())
 exec(open("update_sheets.py").read())
+exec(open("menu.py").read())
 
 destination_loc = [float(df.Longitude.median()),float(df.Latitude.median())]
 
@@ -48,7 +51,7 @@ for i in range(len(df)):
     else:
         color = 'green'
     tooltip = str(name) + " | Rating: " + str(Rating) + " | Notes: " + str(notes)
-    linkofplace = ("https://www.google.com/search?q=" + name + ' ' + st.secrets['place_of_interest']).replace(" ","%20")
+    linkofplace = ("https://www.google.com/search?q=" + name + ' ' + users_place_of_interest).replace(" ","%20")
     try:
         folium.Marker(
             place_loc, tooltip=tooltip, icon=folium.Icon(color=color,icon_color="white"), popup="<a href=_link target='_blank'>link</a>".replace("_link",linkofplace).replace("link",name)
