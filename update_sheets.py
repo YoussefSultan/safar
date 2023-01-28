@@ -55,11 +55,17 @@ try:
 except:
     pass
 
+# Always drop duplicates
+if source_df.duplicated().any():
+    source_df = source_df.mask(source_df.duplicated()).replace(np.nan,'',regex=True)
+    sheet.update([source_df.columns.values.tolist()] + source_df.values.tolist())
+    source_df = pd.DataFrame(sheet.get_all_records())
+
 # if there are no null values in longitudinal data we pass, otherwise we update the data
 if len(ix_to_update) == 0:
     pass
 else:
     update_data(source_df,ix_to_update,place_of_interest,update_all=False)
-    source_df = source_df.fillna(0)
+    source_df = source_df.fillna(0).drop_duplicates()
     sheet.update([source_df.columns.values.tolist()] + source_df.values.tolist())
 

@@ -65,7 +65,7 @@ with st.sidebar:
             base_df = base_df.fillna(0)
             
             # Merge the final user dataframe with updated information to the master data and push to Google Sheets
-            base_df = pd.concat([source_df,base_df]).reset_index().drop(columns='index')
+            base_df = pd.concat([source_df.drop_duplicates(),base_df]).reset_index().drop(columns='index')
             sheet.update([base_df.columns.values.tolist()] + base_df.values.tolist())
             
         
