@@ -79,3 +79,7 @@ with st.sidebar:
         user_selection = st.selectbox('Select a previous query', tuple(selections))
         df = source_df[source_df.username == user_selection].iloc[:,:9].reset_index()
         users_place_of_interest = list(source_df[source_df.username == user_selection]['place_of_interest'])[0]
+    
+    with st.expander("Click here to edit experience checklist"):
+        ## Contains checklist
+        exec(open("checklist.py").read())

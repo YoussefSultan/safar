@@ -13,6 +13,8 @@ exec(open("sidebar.py").read())
 ## Contains map application
 exec(open("folium_map.py").read())
 
+
+
 # --------------------------------------------------------------------------------------------- # 
 # This section is not wrapped in a Python File because the Emoji's will not properly show on UI #
 # Experienced Section

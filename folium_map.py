@@ -53,6 +53,8 @@ for i in range(len(df)):
 # Add location of user feature
 LocateControl().add_to(m)
 
-# Add map created
-st.write("## The Map:")
-folium_static(m, height=height,width=width)
+col1, col2, col3 = st.columns(3)
+with col1:
+    # Add map created
+    st.write("## The Map:")
+    folium_static(m, height=height,width=width)
