@@ -1,42 +1,36 @@
-# #modified_exp_df = st.experimental_data_editor(df[['formatted_name', 'experienced']])
+category_names = {
+    0: 'Not Experienced',
+    1: 'Experienced',
+    2: 'Newly Added',
+    3: 'Sites to See'
+}
 
-# #st.dataframe(modified_exp_df)
+experienced_df = df[['formatted_name', 'experienced']]
 
+modified_exp_df = st.experimental_data_editor(experienced_df)
 
+for name, exp in zip(modified_exp_df.formatted_name,modified_exp_df.experienced):
+    
+    user_df = source_df[source_df['username'] == user_selection]
+    ix = user_df[user_df.formatted_name == name].index
+    ix = list(ix)[0]
 
+    
+    
+    if source_df.loc[ix, 'experienced'] != modified_exp_df[modified_exp_df.formatted_name == name]['experienced'].values.tolist()[0]:
+        print("FOR USERNAME:", user_selection, "| IX:", ix)
+        print("CHANGING EXPERIENCE OF PLACE:", source_df.loc[ix, 'formatted_name'], source_df.loc[ix, 'experienced'], "to", modified_exp_df[modified_exp_df.formatted_name == name]['experienced'].values.tolist()[0])
+        
+        source_df.loc[ix, 'experienced'] = modified_exp_df[modified_exp_df.formatted_name == name]['experienced'].values.tolist()[0]
 
-# category_names = {
-#     0: 'Not Experienced',
-#     1: 'Experienced',
-#     2: 'Newly Added',
-#     3: 'Sites to See'
-# }
+source_df = source_df.sort_values('username')
 
-# experienced_df = df[['formatted_name', 'experienced']]
+# Push updated sheet to google sheets
+sheet.update([source_df.columns.values.tolist()] + source_df.values.tolist())
 
-# dummy_df = pd.get_dummies(experienced_df['experienced'], prefix='category').astype('bool')
+# re-instantiate main dataframe for map
+sheet = client.open_by_url(st.secrets['public_gsheets_url']).get_worksheet(0)
+source_df = pd.DataFrame(sheet.get_all_records())
+df = source_df[source_df.username == user_selection].iloc[:,:9].reset_index()
 
-# dummy_df.columns = dummy_df.columns.map(lambda x: category_names[int(x.split('_')[-1])])
-
-# exp_select_boxes_df = pd.concat([experienced_df,dummy_df],axis=1).drop('experienced',axis=1)
-
-# modified_exp_df = st.experimental_data_editor(exp_select_boxes_df)
-
-# for i, row in modified_exp_df.iterrows():
-#     num_true = row[['Not Experienced', 'Experienced', 'Newly Added', 'Sites to See']].sum()
-#     if num_true > 1:
-#         # raise an error with a custom message
-#         st.error(f"More than one category is True in row {i+1}.")
-#     else:
-#         pass
-
-# transform_back_df_1 = modified_exp_df.melt(id_vars=['formatted_name'], value_vars=list(category_names.values()))
-# transform_back_df_1 = transform_back_df_1.rename(columns={'variable': 'category', 'value': 'encoded_column'})
-# transform_back_df_1['encoded_column'] = transform_back_df_1['category'].map({value: key for key, value in category_names.items()})
-
-# transform_back_df_1.rename(columns={'encoded_column':'experienced'}, inplace=True)
-# transform_back_df_1.drop(columns='category',axis=1,inplace=True)
-
-# st.dataframe(transform_back_df_1)
-
-# st.dataframe(experienced_df)
+# st.dataframe(source_df)

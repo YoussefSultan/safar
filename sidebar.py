@@ -37,6 +37,7 @@ with st.sidebar:
         # Initialize Selections of Unique Profiles in Master Data
         selections = list(source_df.username.unique())
         st.write(len(user_input_places.split(', ')))
+        
         # Edge Case Rules to not make updates to the Master Data list if USER INPUT data is X
         if user_input_username in ['Username/Identifier','','ys-turkey','ys-canada',' '] or user_input_location in ['City, State/Country','',' '] or user_input_places in ['',' ']:
             st.error('Please enter a username and location in the above format...')
@@ -65,7 +66,7 @@ with st.sidebar:
             base_df = base_df.fillna(0)
             
             # Merge the final user dataframe with updated information to the master data and push to Google Sheets
-            base_df = pd.concat([source_df.drop_duplicates(),base_df]).reset_index().drop(columns='index')
+            base_df = pd.concat([source_df.drop_duplicates(),base_df]).reset_index().drop(columns='index').sort_values('username')
             sheet.update([base_df.columns.values.tolist()] + base_df.values.tolist())
             
         

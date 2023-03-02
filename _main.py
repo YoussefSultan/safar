@@ -3,7 +3,7 @@ exec(open("config.py").read())
 
 ## Gets location metadata from Google Places API
 exec(open("get_details.py").read())
-
+ 
 ## Update master sheet with data based on user input
 exec(open("update_sheets.py").read())
 
@@ -13,8 +13,6 @@ exec(open("sidebar.py").read())
 ## Contains map application
 exec(open("folium_map.py").read())
 
-
-
 # --------------------------------------------------------------------------------------------- # 
 # This section is not wrapped in a Python File because the Emoji's will not properly show on UI #
 # Experienced Section
@@ -22,7 +20,7 @@ exec(open("folium_map.py").read())
 c1, c2, c3, c4 = st.columns(4)
 with c1:
     st.write('### Experienced 🟥:')
-    st.write(exp)
+    st.write(exp) 
 with c2:
     st.write('### Not Experienced 🟦:')
     not_experienced_df = list(df[df.experienced == 0].formatted_name)

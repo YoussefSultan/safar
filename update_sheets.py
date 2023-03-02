@@ -57,7 +57,7 @@ except:
 
 # Always drop duplicates
 if source_df.duplicated().any():
-    source_df = source_df.mask(source_df.duplicated()).replace(np.nan,'',regex=True)
+    source_df = source_df.mask(source_df.duplicated()).replace(np.nan,'',regex=True).sort_values('username')
     sheet.update([source_df.columns.values.tolist()] + source_df.values.tolist())
     source_df = pd.DataFrame(sheet.get_all_records())
 
@@ -66,6 +66,6 @@ if len(ix_to_update) == 0:
     pass
 else:
     update_data(source_df,ix_to_update,place_of_interest,update_all=False)
-    source_df = source_df.fillna(0).drop_duplicates()
+    source_df = source_df.fillna(0).drop_duplicates().sort_values('username')
     sheet.update([source_df.columns.values.tolist()] + source_df.values.tolist())
 
