@@ -73,6 +73,7 @@ with st.sidebar:
     # Update our selections of profiles after update
     sheet = client.open_by_url(st.secrets['public_gsheets_url']).get_worksheet(0)
     source_df = pd.DataFrame(sheet.get_all_records())
+    source_df = source_df.dropna(how='any')
     selections = list(source_df.username.unique())    
     
     # >> Click here to pick a profile    
@@ -81,6 +82,6 @@ with st.sidebar:
         df = source_df[source_df.username == user_selection].iloc[:,:9].reset_index()
         users_place_of_interest = list(source_df[source_df.username == user_selection]['place_of_interest'])[0]
     
-    with st.expander("Click here to edit experience checklist"):
+    #with st.expander("Click here to edit experience checklist"):
         ## Contains checklist
-        exec(open("checklist.py").read())
+        #exec(open("checklist.py").read())
