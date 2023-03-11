@@ -34,6 +34,8 @@ creds = ServiceAccountCredentials.from_json_keyfile_dict(auth, scope)
 client = gspread.authorize(creds)
 sheet = client.open_by_url(st.secrets['public_gsheets_url']).get_worksheet(0)
 source_df = pd.DataFrame(sheet.get_all_records())
+source_df = source_df[(source_df['loc_of_interest'] != '') & ~source_df['formatted_name'].isnull()]
+sheet.update([source_df.columns.values.tolist()] + source_df.values.tolist())
 
 # Extra preprocessing
 import re
