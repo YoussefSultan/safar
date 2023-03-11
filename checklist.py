@@ -27,8 +27,8 @@ for name, exp in zip(modified_exp_df.formatted_name,modified_exp_df.experienced)
 sheet.update([source_df.columns.values.tolist()] + source_df.values.tolist())
 
 # re-instantiate main dataframe for map
-#sheet = client.open_by_url(st.secrets['public_gsheets_url']).get_worksheet(0)
-#source_df = pd.DataFrame(sheet.get_all_records())
+sheet = client.open_by_url(st.secrets['public_gsheets_url']).get_worksheet(0)
+source_df = pd.DataFrame(sheet.get_all_records())
 df = source_df[source_df.username == user_selection].iloc[:,:9].reset_index()
 users_place_of_interest = list(source_df[source_df.username == user_selection]['place_of_interest'])[0]
 # st.dataframe(source_df)

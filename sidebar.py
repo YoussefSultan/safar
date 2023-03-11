@@ -18,12 +18,15 @@ with st.sidebar:
     
     # Form to submit User Data
     with st.form(key="form"):
+        
         st.title('Create/Modify a profile with your own unique pinpoints')
+        
         # User input data
         # >> Username, Location, Places to go
         user_input_username = st.text_input("Username","Username/Identifier")
         user_input_location = st.text_input("Location","City, State/Country")
         user_input_places = st.text_input("Places to go","Scarr's Pizza, Empire State, etc")
+        
         # User Submit Form Button
         # >> Add to map
         add_to_map = st.form_submit_button(label='Add to map')
@@ -32,10 +35,11 @@ with st.sidebar:
         initialize_df = {}
         for i in source_df.columns:
             initialize_df[i] = np.nan
-        base_df = pd.DataFrame(initialize_df, index=[0])
         
+        base_df = pd.DataFrame(initialize_df, index=[0])
+
         # Initialize Selections of Unique Profiles in Master Data
-        selections = list(source_df.username.unique())
+        selections = list(pd.DataFrame(sheet.get_all_records()).username.unique())
         st.write(len(user_input_places.split(', ')))
         
         # Edge Case Rules to not make updates to the Master Data list if USER INPUT data is X
@@ -64,7 +68,7 @@ with st.sidebar:
             # update the user's dataframe with longitudinal data and other missing data based on Google Places API (update_sheets.py)    
             update_data(base_df, [i for i in base_df[base_df['Longitude'].isnull()].index], travel_destination=users_place_of_interest, update_all=False)
             base_df = base_df.fillna(0)
-            
+            base_df = base_df[(base_df['loc_of_interest'] != '') & ~base_df['formatted_name'].isnull()]
             # Merge the final user dataframe with updated information to the master data and push to Google Sheets
             base_df = pd.concat([source_df.drop_duplicates(),base_df]).reset_index().drop(columns='index').sort_values('username')
             sheet.update([base_df.columns.values.tolist()] + base_df.values.tolist())
