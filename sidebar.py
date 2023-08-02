@@ -81,17 +81,26 @@ with st.sidebar:
     selections = list(source_df.username.unique())    
     
     # Check if the default selection is in the session state
-    if 'default_selection' not in st.session_state:
-        st.session_state.default_selection = 'ys-la'
-    
+    # Define a file to store the default selection
+    DEFAULT_SELECTION_FILE = 'default_selection.txt'
+    try:
+        with open(DEFAULT_SELECTION_FILE, 'r') as file:
+            default_selection = file.read().strip()
+    except FileNotFoundError:
+        default_selection = 'ys-la'  # Default value if the file doesn't exist
+
     # >> Click here to pick a profile    
     with st.expander("Click here to pick a profile"):
-        user_selection = st.selectbox('Select a previous query', tuple(selections), index=selections.index(st.session_state.default_selection))
+        user_selection = st.selectbox('Select a previous query', tuple(selections), index=selections.index(default_selection))
 
         # Button to set the current selection as the default
         if st.button('Set as default'):
-            st.session_state.default_selection = user_selection
-            st.write(f"Default selection set to {user_selection}")
+            default_selection = user_selection
+
+            # Write the new default selection to the file
+            with open(DEFAULT_SELECTION_FILE, 'w') as file:
+                file.write(default_selection)
+                st.write(f"Default selection set to {user_selection}")
 
         df = source_df[source_df.username == user_selection].iloc[:,:9].reset_index()
         users_place_of_interest = list(source_df[source_df.username == user_selection]['place_of_interest'])[0]
