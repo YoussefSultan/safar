@@ -43,7 +43,7 @@ with st.sidebar:
         st.write(len(user_input_places.split(', ')))
         
         # Edge Case Rules to not make updates to the Master Data list if USER INPUT data is X
-        if user_input_username in ['Username/Identifier','','ys-turkey','ys-canada',' '] or user_input_location in ['City, State/Country','',' '] or user_input_places in ['',' ']:
+        if user_input_username in ['Username/Identifier','',' '] or user_input_location in ['City, State/Country','',' '] or user_input_places in ['',' ']:
             st.error('Please enter a username and location in the above format...')
             users_place_of_interest = source_df[source_df.username == selections[0]]['place_of_interest'][0]
         elif len(user_input_places.split(', ')) > 10:
