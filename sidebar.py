@@ -43,7 +43,7 @@ with st.sidebar:
         st.write(len(user_input_places.split(', ')))
         
         # Edge Case Rules to not make updates to the Master Data list if USER INPUT data is X
-        if user_input_username in ['Username/Identifier','','ys-turkey','ys-canada',' '] or user_input_location in ['City, State/Country','',' '] or user_input_places in ['',' ']:
+        if user_input_username in ['Username/Identifier','',' '] or user_input_location in ['City, State/Country','',' '] or user_input_places in ['',' ']:
             st.error('Please enter a username and location in the above format...')
             users_place_of_interest = source_df[source_df.username == selections[0]]['place_of_interest'][0]
         elif len(user_input_places.split(', ')) > 10:
@@ -70,7 +70,7 @@ with st.sidebar:
             base_df = base_df.fillna(0)
             base_df = base_df[(base_df['loc_of_interest'] != '') & ~base_df['formatted_name'].isnull()]
             # Merge the final user dataframe with updated information to the master data and push to Google Sheets
-            base_df = pd.concat([source_df.drop_duplicates(),base_df]).reset_index().drop(columns='index').sort_values('username')
+            base_df = pd.concat([source_df.drop_duplicates(),base_df]).reset_index().drop(columns='index').sort_values('username').fillna('')
             sheet.update([base_df.columns.values.tolist()] + base_df.values.tolist())
             
         

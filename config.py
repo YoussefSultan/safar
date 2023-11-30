@@ -17,5 +17,5 @@ button = st.button(st.session_state['button'])
 if not button:
     height, width = 750, 350
 else:
-    height, width = 800, 1750
+    height, width = 700, 1300
     st.session_state['button'] = 'Mobile'

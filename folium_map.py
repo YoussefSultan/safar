@@ -54,7 +54,14 @@ for i in range(len(df)):
 LocateControl().add_to(m)
 
 col1, col2, col3 = st.columns(3)
-with col1:
-    # Add map created
+
+# Effects how the map is shown based on the mode:
+if st.session_state['button'] == 'Mobile':
+        # Add map created
     st.write("## The Map:")
     folium_static(m, height=height,width=width)
+else:
+    with col1:
+        # Add map created
+        st.write("## The Map:")
+        folium_static(m, height=height,width=width)
