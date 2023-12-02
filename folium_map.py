@@ -21,6 +21,7 @@ for i in range(len(df)):
     experienced = df.loc[i,'experienced']
     notes = df.loc[i,'notes']
     place_loc = [Lon,Lat]
+   
 
     # set color of marker based experience column,
     # >> 0: Not Experienced, 1: Experienced, all other numbers: Not experienced color coded differently incase a friend has their own points, 3: Used to identify landmarks
@@ -34,6 +35,21 @@ for i in range(len(df)):
     else:
         color = 'green'
     
+    if notes == 'breakfast':
+      iconlogo = 'plane' 
+    elif notes == 'coffee':
+      iconlogo = 'signal'
+    elif notes == 'lunch':
+      iconlogo = 'film'
+    elif notes == 'dinner':
+      iconlogo = 'cutlery'
+    elif notes == 'dessert':
+      iconlogo = 'cog'
+    elif notes == 'mall':
+      iconlogo = 'lock'
+    else:
+      iconlogo = 'cloud'
+
     # Adjust tool tip for each marker with metadata and link of place
     tooltip = str(name) + " | Rating: " + str(Rating) + " | Notes: " + str(notes)
     linkofplace = ("https://www.google.com/search?q=" + name + ' ' + users_place_of_interest).replace(" ","%20")
@@ -41,7 +57,9 @@ for i in range(len(df)):
     # pinpoint marker; adds all metadata to map
     try:
         folium.Marker(
-            place_loc, tooltip=tooltip, icon=folium.Icon(color=color,icon_color="white"), popup="<a href=_link target='_blank'>link</a>".replace("_link",linkofplace).replace("link",name)
+            place_loc, 
+            tooltip=tooltip, 
+            icon=folium.Icon(icon=iconlogo, color=color,icon_color="white"), popup="<a href=_link target='_blank'>link</a>".replace("_link",linkofplace).replace("link",name)
         ).add_to(m)
         
         folium.Icon(color=color)
